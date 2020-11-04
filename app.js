@@ -15,16 +15,18 @@ app.use(
 app.use(express.static('public'));
 
 //connect to database
-mongoose.connect('mongodb://localhost:27017/medibox', {
-   useNewUrlParser: true,
-   useUnifiedTopology: true,
-});
+// const url ='mongodb://localhost:27017/medibox'
+// const url = "mongodb+srv://admin-manish:rockstar123@cluster0-9koh3.mongodb.net/medibox&w=majority"
+// mongoose.connect(url, {
+//    useNewUrlParser: true,
+//    useUnifiedTopology: true,
+// });
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-   console.log('Database is connected successfully on port 27017!!!');
-});
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function () {
+//    console.log('Database is connected successfully on port 27017!!!');
+// });
 
 //TODO
 
