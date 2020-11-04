@@ -75,6 +75,6 @@ app.get('/thankyou', (req, res) => {
       title: 'Store'
    });
 });
-app.listen(3000, function () {
-   console.log('Server started on port 3000');
-});
+// Connect with the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
