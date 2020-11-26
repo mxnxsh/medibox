@@ -1,0 +1,47 @@
+<%- include ("./../partials/adminHeader") %>
+<div class="container">
+    <%- include ("./../partials/messages") %>
+</div>
+
+<div class="container table-responsive">
+    <h2 class="page-title">Categories</h2>
+    <a href="/admin/categories/add-categories"
+        class="btn btn-primary">Add category</a>
+    <br><br>
+
+    <table class="table propertyList table-hover">
+
+        <thead class="thead-dark">
+            <tr>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% categories.forEach(function(cat){ %>
+                    <tr>
+                        <td>
+                            <%= cat.title %>
+                        </td>
+                        <td>
+                            <p style="display: inline;"
+                                data-placement="top"
+                                data-toggle="tooltip"
+                                title="Edit">
+                                <a class="btn btn-primary btn-xs"
+                                    href="/admin/categories/edit-categories/<%= cat._id %>"><img src="/images/edit.svg"></a>
+                            </p>
+                            <p style="display: inline;"
+                                data-placement="top"
+                                data-toggle="tooltip"
+                                title="Delete">
+                                <a class="btn btn-danger btn-xs"
+                                    href="/admin/categories/delete-category/<%= cat._id %>"><img src="/images/trash-2.svg" height="24px" width="24px"></a>
+                            </p>
+                        </td>
+                    </tr>
+                    <% }); %>
+        </tbody>
+    </table>
+</div>
+<%- include ("./../partials/adminFooter") %>

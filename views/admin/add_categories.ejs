@@ -1,0 +1,28 @@
+<%- include ("./../partials/adminHeader") %>
+<div class="container">
+    <% if(error) {%>
+    <div class="alert alert-danger">
+        <%= error %>
+    </div>
+    <% }%>
+</div>
+
+<div class="container">
+    <h2 class="page-title">Add a category</h2>
+    <a href="/admin/categories"
+        class="btn btn-primary">Back to category</a>
+    <br><br>
+    <form method="post"
+        action="/admin/categories/add-categories">
+        <div class="form-group">
+            <label for="">Title</label>
+            <input type="text"
+                class="form-control"
+                name="title"
+                value="<%=title%>"
+                placeholder="Title">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<%- include ("./../partials/adminFooter") %></br>

@@ -1,0 +1,60 @@
+<%- include ("./../partials/adminHeader") %>
+<div class="container"><%- include ("./../partials/messages") %></div>
+<div class="container table-responsive">
+  <h3 class="page-title">Residential Property</h3>
+  <a href="/admin/products/add-products" class="btn btn-primary"
+    >Add Property</a
+  >
+  <br /><br />
+  <table class="table table-hover propertyList">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col">Category</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Image</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(function(product,index){%>
+      <tr>
+        <td><%=product.title%></td>
+        <td><%=product.price%></td>
+        <td><%=product.category%></td>
+        <td><%=product.quantity%></td>
+        <td>
+          <%if(product.avatar===''){%>
+          <img id="noimage" src="/images/noimage.png" />
+          <%}else{%>
+          <img
+            src="/uploads/avatar/<%=product.avatar%>"
+            style="width: 100px; height: 70px"
+          />
+        </td>
+        <%}%>
+        <td>
+          <div class="d-flex flex-row">
+            <p data-placement="top" data-toggle="tooltip">
+              <a
+                class="btn btn-primary btn-xs ml-1"
+                href="/admin/products/edit_products/<%=product._id%>"
+                ><img src="/images/edit.svg"
+              /></a>
+            </p>
+            <p data-placement="top" data-toggle="tooltip">
+              <a
+                class="btn btn-danger btn-xs ml-1"
+                href="/admin/products/delete_product/<%=product._id%>"
+                ><img src="/images/trash-2.svg" height="24px" width="24px"
+              /></a>
+            </p>
+          </div>
+        </td>
+      </tr>
+      <%})%>
+    </tbody>
+  </table>
+</div>
+<%- include ("./../partials/adminFooter") %>

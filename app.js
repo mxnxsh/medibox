@@ -1,35 +1,61 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const ejs = require('ejs');
+const session = require('express-session');
+const passport = require('passport');
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
 
 const app = express();
-
 app.set('view engine', 'ejs');
-
 app.use(
    bodyParser.urlencoded({
       extended: true,
    }),
 );
 app.use(express.static('public'));
-
+// Express session
+app.use(
+   session({
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true,
+   }),
+);
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+// Connect flash
+app.use(flash());
+// Global variables
+app.use(function (req, res, next) {
+   res.locals.success_msg = req.flash('success_msg');
+   res.locals.error_msg = req.flash('error_msg');
+   res.locals.danger_msg = req.flash('danger_msg');
+   res.locals.error = req.flash('error');
+   next();
+});
 //connect to database
-// const url ='mongodb://localhost:27017/medibox'
+const url = 'mongodb://localhost:27017/medibox'
 // const url = "mongodb+srv://admin-manish:rockstar123@cluster0-9koh3.mongodb.net/medibox&w=majority"
-// mongoose.connect(url, {
-//    useNewUrlParser: true,
-//    useUnifiedTopology: true,
-// });
+mongoose.connect(url, {
+   useNewUrlParser: true,
+   useUnifiedTopology: true,
+});
 
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function () {
-//    console.log('Database is connected successfully on port 27017!!!');
-// });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+   console.log('Database is connected successfully on port 27017!!!');
+});
 
-//TODO
+// Set global errors variable
+app.locals.errors = null;
+app.get('*', function (req, res, next) {
+   res.locals.user = req.user || null;
+   next();
+});
 
+//get all the navbar routes
 app.get('/', (req, res) => {
    res.render('user/index', {
       title: 'MediBox'
@@ -75,6 +101,17 @@ app.get('/thankyou', (req, res) => {
       title: 'Store'
    });
 });
+
+// adding routes
+const dashboard = require('./routes/dashboard');
+const users = require('./routes/users');
+const category = require('./routes/categories');
+const product = require('./routes/products');
+// using routes
+app.use('/admin', dashboard);
+app.use('/users', users);
+app.use('/admin/categories', category);
+app.use('/admin/products', product);
 // Connect with the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
