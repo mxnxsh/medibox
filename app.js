@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 
 const app = express();
+// Passport Config
+require('./config/passport')(passport);
 app.set('view engine', 'ejs');
 app.use(
    bodyParser.urlencoded({
@@ -55,6 +57,17 @@ app.get('*', function (req, res, next) {
    next();
 });
 
+// Get Category Model
+const Category = require('./models/category');
+
+// Get all categories to pass to header.ejs
+Category.find((err, categories) => {
+   if (err) {
+      console.log(err);
+   } else {
+      app.locals.categories = categories;
+   }
+});
 //get all the navbar routes
 app.get('/', (req, res) => {
    res.render('user/index', {

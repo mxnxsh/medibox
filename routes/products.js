@@ -42,16 +42,18 @@ router.get('/add-products', (req, res) => {
     const {
         title,
         desc,
-        dummyprice,
+        dummyPrice,
         price,
         quantity
     } = '';
 
     Category.find((err, categories) => {
+        if (err) return console.log(err);
         res.render('admin/add_products', {
             title,
             desc,
-            dummyprice,
+            dummyPrice,
+            categories,
             price,
             quantity
         });
@@ -69,15 +71,14 @@ router.post('/add-products', (req, res) => {
         const {
             title,
             desc,
-            dummyprice,
+            dummyPrice,
             price,
+            category,
+            quantity
         } = req.body;
         const slug = title.replace(/\s+/g, '-').toLowerCase();
-        console.log(req.file);
-        var imageFile =
-            typeof req.file !== 'undefined' ?
-                req.file.filename :
-                '';
+        var imageFile = typeof req.file !== 'undefined' ?
+            req.file.filename : '';
         if (req.fileValidationError) {
             return res.send(req.fileValidationError);
         } else if (err instanceof multer.MulterError) {
@@ -86,15 +87,20 @@ router.post('/add-products', (req, res) => {
             return res.send(err);
         }
         const round_Of_Price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // const round_Of_dummyPrice = dummyPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         const product = new Product({
-            title: title,
-            slug: slug,
-            desc: desc,
+            title,
+            slug,
+            desc,
+            price: round_Of_Price,
+            dummyPrice,
+            quantity,
+            category,
             avatar: imageFile,
         });
         product.save(err => {
             if (err) return console.log(err);
-            req.flash('success_msg', 'Product added!');
+            req.flash('success_msg', 'Product added successfully!');
             res.redirect('/admin/products');
         });
     });
@@ -103,8 +109,9 @@ router.post('/add-products', (req, res) => {
 /*
  * GET edit product
  */
-router.get('/edit_products/:_id', (req, res) => {
+router.get('/edit-products/:_id', (req, res) => {
     Category.find((err, categories) => {
+        if (err) return console.log(err);
         Product.findById(req.params._id, (err, product) => {
             if (err) {
                 console.log(err);
@@ -114,33 +121,13 @@ router.get('/edit_products/:_id', (req, res) => {
                 title: product.title,
                 slug: product.slug,
                 desc: product.desc,
-                option1: product.option1,
-                NonRental: 'NonRental',
-                Rental: 'Rental',
                 price: product.price,
-                deposit: product.deposit,
-                option2: product.option2,
-                ReadyPosession: 'Ready posession',
-                UnderConstrution: 'Under Constrution',
+                quantity: product.quantity,
+                dummyPrice: product.dummyPrice,
                 categories: categories,
                 category: product.category.replace(/\s+/g, '-').toLowerCase(),
-                location: product.location,
-                floorArea: product.floorArea,
-                bathroom: product.bathroom,
-                amenities: product.amenities,
-                isOn: product.isOn,
-                Garden: 'Garden',
-                PowerBackup: 'Power Backup',
-                Lift: 'Lift',
-                Temple: 'Temple',
-                nearby: product.nearby,
-                ChildrenPlayArea: 'Children Play Area',
-                GYM: 'GYM',
-                School: 'School',
-                SuperMarket: 'Super Market',
-                Station: 'Station',
                 image: product.avatar,
-                _id: product._id,
+                _id: product._id
             });
         });
     });
@@ -148,58 +135,32 @@ router.get('/edit_products/:_id', (req, res) => {
 /*
  * POST edit product
  */
-router.post('/edit_products/:_id', (req, res) => {
+router.post('/edit-products/:_id', (req, res) => {
     let upload = multer({
         storage: storage,
         fileFilter: helpers.imageFilter,
-    }).fields([{
-        name: 'avatar',
-        maxCount: 1,
-    },
-    {
-        name: 'gallery',
-        maxCount: 10,
-    },
-    ]);
+    }).single('avatar');
     upload(req, res, err => {
+        if (err) return console.log(err);
         const {
             title,
             desc,
-            option1,
             price,
-            deposit,
-            option2,
+            dummyPrice,
             category,
-            amenities,
-            nearby,
             pimage,
-            bathroom,
-            floorArea,
-            location,
-            isOn
         } = req.body;
-        var imageFile =
-            typeof req.files['avatar'] !== 'undefined' ?
-                req.files.avatar[0].filename :
-                '';
+        var imageFile = typeof req.file !== 'undefined' ?
+            req.file.filename : '';
         const slug = title.replace(/\s+/g, '-').toLowerCase();
-        const _id = req.params._id;
-        Product.findById(_id, (err, product) => {
+        Product.findById(req.params._id, (err, product) => {
             if (err) return console.log(err);
             product.title = title;
             product.slug = slug;
             product.desc = desc;
-            product.option1 = option1;
             product.price = price;
-            product.deposit = deposit;
-            product.option2 = option2;
-            product.location = location;
-            product.floorArea = floorArea;
-            product.bathroom = bathroom;
-            product.isOn = isOn;
+            product.dummyPrice = dummyPrice;
             product.category = category;
-            product.amenities = amenities;
-            product.nearby = nearby;
             if (imageFile != '') {
                 product.avatar = imageFile;
             }
@@ -207,10 +168,10 @@ router.post('/edit_products/:_id', (req, res) => {
                 if (err) return console.log(err);
                 if (imageFile != '') {
                     if (pimage != '') {
-                        fs.unlink('public/uploads/avatar/' + pimage, err => {
+                        fs.unlink('public/uploads/' + pimage, err => {
                             if (err) {
                                 return console.log(err);
-                            } else if (path === 'public/uploads/avatar') {
+                            } else if (path === 'public/uploads') {
                                 console.log('Image are not present');
                             } else {
                                 console.log(`File deleted!`);
@@ -218,7 +179,7 @@ router.post('/edit_products/:_id', (req, res) => {
                         });
                     }
                 }
-                req.flash('success_msg', 'Product added!');
+                req.flash('success_msg', 'Product Edited successfully!');
                 res.redirect('/admin/products');
             });
         });
@@ -228,34 +189,21 @@ router.post('/edit_products/:_id', (req, res) => {
 /*
  * GET delete product
  */
-router.get('/delete_product/:_id', (req, res) => {
+router.get('/delete-product/:_id', (req, res) => {
     Product.findByIdAndDelete(req.params._id, function (err, data) {
         if (err) return console.log(err);
-        const path = 'public/uploads/avatar/' + data.avatar;
+        const path = 'public/uploads/' + data.avatar;
         fs.unlink(path, err => {
-            if (path === 'public/uploads/avatar') {
+            if (path === 'public/uploads') {
                 console.log('Image are not present');
             } else if (err) {
-                console.log('No error found');
+                console.log(`dont solve this error ${err}`);
             } else {
                 console.log('Successfully Avatar is deleted');
             }
         });
-        const gallery = data.gallery;
-        if (gallery.length > 0) {
-            gallery.forEach(filePath => {
-                fs.unlink('public/uploads/gallery/' + filePath, err => {
-                    if (err) {
-                        console.log("No files found =>", err);
-                    } else {
-                        console.log('Successfully Gallery is deleted');
-                    }
-                });
-                return;
-            });
-        }
     });
-    req.flash('success_msg', 'Product added!');
+    req.flash('success_msg', 'Product deleted successfully!!');
     res.redirect('/admin/products');
 });
 

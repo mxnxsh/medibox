@@ -11,14 +11,17 @@ const productSchema = mongoose.Schema({
     desc: {
         type: String
     },
-    dummyPrice: {
+    price: {
         type: String
     },
-    price: {
+    dummyPrice: {
         type: String
     },
     quantity: {
         type: Number
+    },
+    category: {
+        type: String,
     },
     avatar: {
         type: String

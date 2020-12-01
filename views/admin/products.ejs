@@ -29,7 +29,7 @@
           <img id="noimage" src="/images/noimage.png" />
           <%}else{%>
           <img
-            src="/uploads/avatar/<%=product.avatar%>"
+            src="/uploads/<%=product.avatar%>"
             style="width: 100px; height: 70px"
           />
         </td>
@@ -39,14 +39,14 @@
             <p data-placement="top" data-toggle="tooltip">
               <a
                 class="btn btn-primary btn-xs ml-1"
-                href="/admin/products/edit_products/<%=product._id%>"
+                href="/admin/products/edit-products/<%=product._id%>"
                 ><img src="/images/edit.svg"
               /></a>
             </p>
             <p data-placement="top" data-toggle="tooltip">
               <a
                 class="btn btn-danger btn-xs ml-1"
-                href="/admin/products/delete_product/<%=product._id%>"
+                href="/admin/products/delete-product/<%=product._id%>"
                 ><img src="/images/trash-2.svg" height="24px" width="24px"
               /></a>
             </p>

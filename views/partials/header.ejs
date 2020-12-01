@@ -68,18 +68,22 @@
                                 <li class="has-children">
                                     <a href="#">Products</a>
                                     <ul class="dropdown">
-                                        <li><a href="#">Supplements</a></li>
-                                        <li><a href="#">Vitamins</a></li>
-                                        <li><a href="#">Diet &amp; Nutrition</a></li>
-                                        <li><a href="#">Tea &amp; Coffee</a></li>
+                                        <% categories.forEach(function(c){ %>
+                                            <li><a href="#"><%=c.title%></a></li>
+                                            <%})%>
                                     </ul>
                                 </li>
                                 <li <%if(title === 'About') { %>class="active"
                                     <% } %>><a href="/about">About</a></li>
-                                <li <%if(title === 'Register') { %>class="active"
-                                    <% } %>><a href="/register">Register</a></li>
-                                <li <%if(title === 'Login') { %>class="active"
-                                    <% } %>><a href="/login">Login</a></li>
+                                    <%if(user){%>
+                                        <li><a href="">Hi,<%=user.name%></a></li>
+                                    <%}else{%>
+                                        <li <%if(title === 'Register') { %>class="active"
+                                            <% } %>><a href="/register">Register</a></li>
+                                        <li <%if(title === 'Login') { %>class="active"
+                                            <% } %>><a href="/login">Login</a></li>
+                                    <%}%>
+                                
                             </ul>
                         </nav>
                     </div>
