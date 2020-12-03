@@ -53,6 +53,7 @@ db.once('open', function () {
 // Set global errors variable
 app.locals.errors = null;
 app.get('*', function (req, res, next) {
+   res.locals.cart = req.session.cart;
    res.locals.user = req.user || null;
    next();
 });
@@ -68,17 +69,7 @@ Category.find((err, categories) => {
       app.locals.categories = categories;
    }
 });
-//get all the navbar routes
-app.get('/', (req, res) => {
-   res.render('user/index', {
-      title: 'MediBox'
-   });
-});
-app.get('/shop', (req, res) => {
-   res.render('user/shop', {
-      title: 'Store'
-   });
-});
+
 app.get('/about', (req, res) => {
    res.render('user/about', {
       title: 'About'
@@ -119,12 +110,18 @@ app.get('/thankyou', (req, res) => {
 const dashboard = require('./routes/dashboard');
 const users = require('./routes/users');
 const category = require('./routes/categories');
+const adminproduct = require('./routes/admin_products');
 const product = require('./routes/products');
+const cart = require('./routes/cart.js');
+
 // using routes
+app.use('/', product);
 app.use('/admin', dashboard);
 app.use('/users', users);
 app.use('/admin/categories', category);
-app.use('/admin/products', product);
+app.use('/admin/products', adminproduct);
+app.use('/cart', cart);
+
 // Connect with the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));

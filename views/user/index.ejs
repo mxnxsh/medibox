@@ -93,34 +93,41 @@
       </div>
     </div>
     <div class="row">
+      
       <div class="col-md-12 block-3 products-wrap">
         <div class="nonloop-block-3 owl-carousel">
-          <div class="text-center item mb-4 item-v2">
-            <span class="onsale">Sale</span>
-            <a href="/shop-single"> <img src="images/product_03.png"
-                alt="Image"></a>
-            <h3 class="text-dark"><a href="/shop-single">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-          <div class="text-center item mb-4 item-v2">
+          <%if(products){%>
+            <%products.forEach(product=>{%>
+              <div class="text-center item mb-4 item-v2">
+                <a href="/shop-single"> <img src="/uploads/<%=product.avatar%>"
+                    alt="Image"></a>
+                <h3 class="text-dark"><a href="/shop-single"><%=product.title%></a></h3>
+                <p class="price">&#8377;<%=product.price%></p>
+              </div>
+            <%})%>
+          <%}else{%>
+            <h1 style="text-align: center;">No product</h1>
+          <%}%>
+          
+          <!-- <div class="text-center item mb-4 item-v2">
             <a href="/shop-single"> <img src="images/product_01.png"
                 alt="Image"></a>
             <h3 class="text-dark"><a href="/shop-single">Umcka Cold Care</a></h3>
             <p class="price">$120.00</p>
-          </div>
-          <div class="text-center item mb-4 item-v2">
+          </div> -->
+          <!-- <div class="text-center item mb-4 item-v2">
             <span class="onsale">Sale</span>
             <a href="/shop-single"> <img src="images/product_02.png"
                 alt="Image"></a>
             <h3 class="text-dark"><a href="/shop-single">Umcka Cold Care</a></h3>
             <p class="price">$120.00</p>
-          </div>
-          <div class="text-center item mb-4 item-v2">
+          </div> -->
+          <!-- <div class="text-center item mb-4 item-v2">
             <a href="/shop-single"> <img src="images/product_04.png"
                 alt="Image"></a>
             <h3 class="text-dark"><a href="/shop-single">Umcka Cold Care</a></h3>
             <p class="price">$120.00</p>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

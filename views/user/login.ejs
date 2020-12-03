@@ -1,6 +1,9 @@
 <%- include("./../partials/header.ejs") %>
-
+<div class="container">
+  <%- include("./../partials/messages.ejs")%>
+</div>
 <div class="bg-light py-3">
+
   <div class="container">
     <div class="row">
       <div class="col-md-12 mb-0">
@@ -29,6 +32,7 @@
                   class="form-control"
                   id="c_email"
                   name="email"
+                  required
                 >
               </div>
             </div>
@@ -36,10 +40,11 @@
               <div class="col-md-12">
                 <label for="c_password"
                   class="text-black">Password </label>
-                <input type="text"
+                <input type="password"
                   class="form-control"
                   id="c_password"
-                  name="password">
+                  name="password"
+                  required>
               </div>
             </div>
             <div class="form-group row">

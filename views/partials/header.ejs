@@ -83,6 +83,9 @@
                                         <li <%if(title === 'Login') { %>class="active"
                                             <% } %>><a href="/login">Login</a></li>
                                     <%}%>
+                                    <% if (user && user.admin == 1) { %>
+                                        <li><a href="/admin/">Admin Area</a></li>
+                                    <%}%>
                                 
                             </ul>
                         </nav>
@@ -94,7 +97,13 @@
                         <a href="/cart"
                             class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
-                            <span class="number">2</span>
+                            <% if (typeof cart !== "undefined") { %>
+                                
+                                <span class="number"><%= cart.length %></span>
+                                <% } else {%>
+                                    <span class="number">0</span>
+                                <% } %>
+                            <!-- <span class="number">2</span> -->
                         </a>
                         <a href="#"
                             class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
