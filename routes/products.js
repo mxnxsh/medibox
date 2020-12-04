@@ -47,5 +47,19 @@ router.get('/shop-single/:slug/:id', (req, res) => {
     })
   })
 });
+/*
+ * GET category product details
+ */
+router.get('/shop-category/:slug/', (req, res) => {
+  Product.find({ category: req.params.slug })
+    .sort({ date: -1 })
+    .exec((err, products) => {
+      if (err) return console.log(err);
+      res.render('user/shop-category', {
+        title: 'Store',
+        products
+      })
+    })
+});
 // Exports
 module.exports = router;

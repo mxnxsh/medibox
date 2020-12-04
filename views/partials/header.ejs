@@ -69,7 +69,7 @@
                                     <a href="#">Products</a>
                                     <ul class="dropdown">
                                         <% categories.forEach(function(c){ %>
-                                            <li><a href="#"><%=c.title%></a></li>
+                                            <li><a href="/shop-category/<%=c.slug%>"><%=c.title%></a></li>
                                             <%})%>
                                     </ul>
                                 </li>

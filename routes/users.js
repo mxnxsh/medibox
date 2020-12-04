@@ -125,30 +125,6 @@ router.get('/logout', function (req, res) {
    res.redirect('/users/login');
 });
 
-/*
- * GET common -user
- */
-router.get('/common-user',isAdmin, (req, res) => {
-   User.find({}, (err, users) => {
-      if (err) return console.log(err);
-      res.render('admin/user', {
-         users: users,
-      });
-   });
-});
-/*
- * GET common-user id
- */
-router.get('/common-user/:_id',isAdmin, (req, res) => {
-   User.findById(req.params._id, (err, user) => {
-      if (err) return console.log(err);
-      user.isChecked = false;
-      user.save(err => {
-         if (err) return console.log(err);
-         res.redirect('back');
-      });
-   });
-});
 
 // Exports
 module.exports = router;
