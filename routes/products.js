@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const Product = require('./../models/product');
-
+/*
+ *  Get Product on Index page
+ */
 router.get('/', (req, res) => {
   Product.find().sort({
     date: -1
@@ -14,9 +16,6 @@ router.get('/', (req, res) => {
         products
       })
     })
-  //   res.render('user/index', {
-  //     title: 'MediBox'
-  // });
 });
 /*
  *  Get all Product
@@ -33,6 +32,20 @@ router.get('/shop', (req, res) => {
         products: products,
       });
     });
+});
+/*
+ * GET product details
+ */
+router.get('/shop-single/:slug/:id', (req, res) => {
+  Product.findById({
+    _id: req.params.id
+  }, (err, product) => {
+    if (err) return console.log(err)
+    res.render('user/shop-single', {
+      title: 'Store',
+      product
+    })
+  })
 });
 // Exports
 module.exports = router;

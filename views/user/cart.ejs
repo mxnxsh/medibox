@@ -1,170 +1,64 @@
 <%- include("./../partials/header.ejs") %>
-
+<div class="container">
+  <%- include("./../partials/messages.ejs")%>
+</div>
 <div class="bg-light py-3">
   <div class="container">
     <div class="row">
       <div class="col-md-12 mb-0">
-        <a href="index.html">Home</a> <span class="mx-2 mb-0">/</span>
+        <a href="/">Home</a> <span class="mx-2 mb-0">/</span>
         <strong class="text-black">Cart</strong>
       </div>
     </div>
   </div>
 </div>
+<div class="mt-5"></div>
+<%if(cart){%>
 
-<div class="site-section">
-  <div class="container">
-    <div class="row mb-5">
-      <form class="col-md-12"
-        method="post">
-        <div class="site-blocks-table">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th class="product-thumbnail">Image</th>
-                <th class="product-name">Product</th>
-                <th class="product-price">Price</th>
-                <th class="product-quantity">Quantity</th>
-                <th class="product-total">Total</th>
-                <th class="product-remove">Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="product-thumbnail">
-                  <img src="images/product_02.png"
-                    alt="Image"
-                    class="img-fluid">
-                </td>
-                <td class="product-name">
-                  <h2 class="h5 text-black">Ibuprofen</h2>
-                </td>
-                <td>$55.00</td>
-                <td>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-outline-primary js-btn-minus"
-                        type="button">&minus;</button>
-                    </div>
-                    <input type="text"
-                      class="form-control text-center"
-                      value="1"
-                      placeholder=""
-                      aria-label="Example text with button addon"
-                      aria-describedby="button-addon1">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-primary js-btn-plus"
-                        type="button">&plus;</button>
-                    </div>
-                  </div>
-                </td>
-                <td>$49.00</td>
-                <td><a href="#"
-                    class="btn btn-primary height-auto btn-sm">X</a></td>
-              </tr>
-              <tr>
-                <td class="product-thumbnail">
-                  <img src="images/product_01.png"
-                    alt="Image"
-                    class="img-fluid">
-                </td>
-                <td class="product-name">
-                  <h2 class="h5 text-black">Bioderma</h2>
-                </td>
-                <td>$49.00</td>
-                <td>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-outline-primary js-btn-minus"
-                        type="button">&minus;</button>
-                    </div>
-                    <input type="text"
-                      class="form-control text-center"
-                      value="1"
-                      placeholder=""
-                      aria-label="Example text with button addon"
-                      aria-describedby="button-addon1">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-primary js-btn-plus"
-                        type="button">&plus;</button>
-                    </div>
-                  </div>
+<table class="table table-striped alignmiddle">
+    
+    <tr>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th></th>
+        <th>Subtotal</th>
+    </tr>
+    
+    <% var total = 0; %>
+    <% cart.forEach(function(product){ %>
+    <% var sub = parseFloat(product.qty * product.price).toFixed(2) %>
+    <% total += +sub %>
+    <tr>
+        <td><img src="<%= product.image %>" alt="<%= product.image %>" style="height: 65px; width: 65px;"></td>
+        <td><%= product.title %></td>
+        <td>Rs.<%= product.price %></td>
+        <td><%= product.qty %></td>
+        <td>
+            <a href="/cart/update/<%= product.title %>?action=add">+</a>&nbsp;
+            <a href="/cart/update/<%= product.title %>?action=remove">-</a>&nbsp;
+            <a href="/cart/update/<%= product.title %>?action=clear">Clear</a>&nbsp;
+        </td>
+        <td>Rs.<%= sub %></td>
+    </tr>
+    <% }); %>
+    <tr>
+        <td colspan="6" align="right"><b>Total: </b> Rs.<%= parseFloat(total).toFixed(2) %></td>
+    </tr>
+    <tr>
+        <td colspan="5" align="right">
+            <a class="clearcart btn btn-danger" href="/cart/item/clear">Clear cart</a>
+        </td>
+        <td colspan="5" align="right">
+            <a class="btn btn-primary buynow" href="#">Buy now</a>
+        </td>
+    </tr>
+    
+</table>
+<%}else{%>
+    <h1 style="text-align: center;">No Items added</h1>
+<%}%>
 
-                </td>
-                <td>$49.00</td>
-                <td><a href="#"
-                    class="btn btn-primary height-auto btn-sm">X</a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </form>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row mb-5">
-          <div class="col-md-6 mb-3 mb-md-0">
-            <a href="/shop"
-              class="btn btn-primary btn-md btn-block">Update Cart</a>
-          </div>
-          <div class="col-md-6">
-            <a href="/shop"
-              class="btn btn-outline-primary btn-md btn-block">Continue Shopping</a>
-          </div>
-        </div>
-        <!-- <div class="row">
-          <div class="col-md-12">
-            <label class="text-black h4"
-              for="coupon">Coupon</label>
-            <p>Enter your coupon code if you have one.</p>
-          </div>
-          <div class="col-md-8 mb-3 mb-md-0">
-            <input type="text"
-              class="form-control py-3"
-              id="coupon"
-              placeholder="Coupon Code">
-          </div>
-          <div class="col-md-4">
-            <button class="btn btn-primary btn-md px-4">Apply Coupon</button>
-          </div>
-        </div> -->
-      </div>
-      <div class="col-md-6 pl-5">
-        <div class="row justify-content-end">
-          <div class="col-md-7">
-            <div class="row">
-              <div class="col-md-12 text-right border-bottom mb-5">
-                <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
-              </div>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <span class="text-black">Subtotal</span>
-              </div>
-              <div class="col-md-6 text-right">
-                <strong class="text-black">$230.00</strong>
-              </div>
-            </div>
-            <div class="row mb-5">
-              <div class="col-md-6">
-                <span class="text-black">Total</span>
-              </div>
-              <div class="col-md-6 text-right">
-                <strong class="text-black">$230.00</strong>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <button class="btn btn-primary btn-lg btn-block"
-                  onclick="window.location='/cart/checkout'">Checkout</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <%- include("./../partials/footer.ejs") %>

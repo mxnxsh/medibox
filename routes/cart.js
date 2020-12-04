@@ -7,28 +7,30 @@ const Product = require('../models/product');
 /*
  * GET add product to cart
  */
-router.get('/add/:product', function (req, res) {
-
-    var slug = req.params.product;
-
-    Product.findOne({ slug: slug }, function (err, p) {
-        if (err)
-            console.log(err);
-
+router.get('/', (req, res) => {
+    res.render('user/cart', {
+        title: 'Store'
+    });
+});
+router.get('/add/:_id', function (req, res) {
+    var _id = req.params._id;
+    Product.findById({ _id }, function (err, p) {
+        if (err) return console.log(err);
         if (typeof req.session.cart == "undefined") {
             req.session.cart = [];
             req.session.cart.push({
-                title: slug,
+                title: p.title,
+                slug: p.slug,
                 qty: 1,
                 price: parseFloat(p.price).toFixed(2),
-                image: '/product_images/' + p._id + '/' + p.image
+                image: '/uploads/' + p.avatar
             });
         } else {
             var cart = req.session.cart;
             var newItem = true;
 
             for (var i = 0; i < cart.length; i++) {
-                if (cart[i].title == slug) {
+                if (cart[i]._id === _id) {
                     cart[i].qty++;
                     newItem = false;
                     break;
@@ -37,37 +39,35 @@ router.get('/add/:product', function (req, res) {
 
             if (newItem) {
                 cart.push({
-                    title: slug,
+                    title: p.title,
                     qty: 1,
                     price: parseFloat(p.price).toFixed(2),
-                    image: '/product_images/' + p._id + '/' + p.image
+                    image: '/uploads/' + p.avatar
                 });
             }
         }
-
-        //        console.log(req.session.cart);
-        req.flash('success', 'Product added!');
-        res.redirect('back');
+        req.flash('success_msg', 'Product added to cart!');
+        res.redirect('/cart');
     });
 
 });
 
-/*
- * GET checkout page
- */
-router.get('/checkout', function (req, res) {
+// /*
+//  * GET checkout page
+//  */
+// router.get('/checkout', function (req, res) {
 
-    if (req.session.cart && req.session.cart.length == 0) {
-        delete req.session.cart;
-        res.redirect('/cart/checkout');
-    } else {
-        res.render('checkout', {
-            title: 'Checkout',
-            cart: req.session.cart
-        });
-    }
+//     if (req.session.cart && req.session.cart.length == 0) {
+//         delete req.session.cart;
+//         res.redirect('/cart/checkout');
+//     } else {
+//         res.render('checkout', {
+//             title: 'Checkout',
+//             cart: req.session.cart
+//         });
+//     }
 
-});
+// });
 
 /*
  * GET update product
@@ -77,7 +77,6 @@ router.get('/update/:product', function (req, res) {
     var slug = req.params.product;
     var cart = req.session.cart;
     var action = req.query.action;
-
     for (var i = 0; i < cart.length; i++) {
         if (cart[i].title == slug) {
             switch (action) {
@@ -102,20 +101,20 @@ router.get('/update/:product', function (req, res) {
         }
     }
 
-    req.flash('success', 'Cart updated!');
-    res.redirect('/cart/checkout');
+    req.flash('success_msg', 'Cart updated!');
+    res.redirect('back');
 
 });
 
 /*
  * GET clear cart
  */
-router.get('/clear', function (req, res) {
+router.get('/item/clear', function (req, res) {
 
     delete req.session.cart;
 
-    req.flash('success', 'Cart cleared!');
-    res.redirect('/cart/checkout');
+    req.flash('success_msg', 'Cart cleared!');
+    res.redirect('back');
 
 });
 

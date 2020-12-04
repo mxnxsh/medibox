@@ -9,17 +9,6 @@ const { isUser ,isAdmin} = require('../config/auth');
 // Get Users model
 const User = require('../models/user');
 
-/*
- * GET register
- */
-router.get('/register', isUser.forwardAuthenticated, function (req, res) {
-   res.render('user/register', {
-      title: 'Register',
-      name: '',
-      email: '',
-      number: '',
-   });
-});
 
 /*
  * POST register
@@ -115,14 +104,6 @@ router.post(
    },
 );
 
-/*
- * GET login
- */
-router.get('/login', isUser.forwardAuthenticated, (req, res) => {
-   res.render('user/login', {
-      title: 'Log in',
-   });
-});
 
 /*
  * POST login

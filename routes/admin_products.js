@@ -86,13 +86,12 @@ router.post('/add-products', (req, res) => {
         } else if (err) {
             return res.send(err);
         }
-        const round_Of_Price = price.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        // const round_Of_dummyPrice = dummyPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
         const product = new Product({
             title,
             slug,
             desc,
-            price: round_Of_Price,
+            price,
             dummyPrice,
             quantity,
             category,

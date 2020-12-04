@@ -85,16 +85,12 @@ app.get('/login', (req, res) => {
       title: 'Login'
    });
 });
-app.get('/shop-single', (req, res) => {
-   res.render('user/shop-single', {
-      title: 'Store'
-   });
-});
-app.get('/cart', (req, res) => {
-   res.render('user/cart', {
-      title: 'Store'
-   });
-});
+
+// app.get('/cart', (req, res) => {
+//    res.render('user/cart', {
+//       title: 'Store'
+//    });
+// });
 app.get('/cart/checkout', (req, res) => {
    res.render('user/checkout', {
       title: 'Store'
