@@ -165,3 +165,26 @@ https://api.whatsapp.com/send?phone=+917303099282&text=Welcome
       </div>
     </div>
   </div>
+
+res.status(200).json({
+		msg: 'Information',
+		userName: { name, email, number },
+		cart: cartItems.forEach(cartItem => {
+			const { title, qty, price } = cartItem
+		}),
+	});
+
+
+  cartItems.forEach(cartItem => {
+		const { title, qty, price } = cartItem
+		console.log('title=>', title);
+		console.log('qty=>', qty);
+		console.log('price=>', price * cartItem.qty);
+	})
+  <td>
+      <img
+        src="<%= product.image %>"
+        alt="<%= product.image %>"
+        style="height: 65px; width: 65px"
+      />
+    </td>

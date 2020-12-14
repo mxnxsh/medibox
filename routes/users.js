@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
-const { isUser ,isAdmin} = require('../config/auth');
+const { isUser, isAdmin } = require('../config/auth');
 // const errors = []
 
 // Get Users model
@@ -58,7 +58,7 @@ router.post(
                if (user) {
                   console.log('Email already exists');
                   req.flash('error_msg', 'Email already exists');
-                  res.redirect('/users/register');
+                  res.redirect('/register');
                } else {
                   var user = new User({
                      name: name,
@@ -92,7 +92,7 @@ router.post(
                                  'success_msg',
                                  'You are now registered! Please log in',
                               );
-                              res.redirect('/users/login');
+                              res.redirect('/login');
                            }
                         });
                      });
@@ -122,7 +122,18 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', function (req, res) {
    req.logout();
    req.flash('success_msg', 'You are logged out!');
-   res.redirect('/users/login');
+   res.redirect('/login');
+});
+/*
+ * GET common -user
+ */
+router.get('/common-user', isAdmin, (req, res) => {
+   User.find({}, (err, users) => {
+      if (err) return console.log(err);
+      res.render('admin/user', {
+         users: users,
+      });
+   });
 });
 
 

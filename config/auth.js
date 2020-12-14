@@ -3,8 +3,8 @@ exports.isUser = {
         if (req.isAuthenticated()) {
             return next();
         }
-        req.flash('error_msg', 'Please log in to view that resource');
-        res.redirect('/users/login');
+        req.flash('error_msg', 'Please log in first for add to cart.');
+        res.redirect('/login');
     },
     forwardAuthenticated: function (req, res, next) {
         if (!req.isAuthenticated()) {
@@ -20,6 +20,6 @@ exports.isAdmin = function (req, res, next) {
     } else {
         console.log('please log in as admin');
         req.flash('error_msg', 'Please log in as admin.');
-        res.redirect('/users/login');
+        res.redirect('/login');
     }
 }

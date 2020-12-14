@@ -18,7 +18,8 @@ const productSchema = new mongoose.Schema({
         type: String
     },
     quantity: {
-        type: Number
+        type: Number,
+        default: 30
     },
     category: {
         type: String,

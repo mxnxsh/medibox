@@ -91,11 +91,11 @@ app.get('/login', (req, res) => {
 //       title: 'Store'
 //    });
 // });
-app.get('/cart/checkout', (req, res) => {
-   res.render('user/checkout', {
-      title: 'Store'
-   });
-});
+// app.get('/cart/checkout', (req, res) => {
+//    res.render('user/checkout', {
+//       title: 'Store'
+//    });
+// });
 app.get('/thankyou', (req, res) => {
    res.render('user/thankyou', {
       title: 'Store'

@@ -1,7 +1,5 @@
 <%- include("./../partials/header.ejs") %>
-<div class="container">
-  <%- include("./../partials/messages.ejs")%>
-</div>
+<div class="container"><%- include("./../partials/messages.ejs")%></div>
 <div class="bg-light py-3">
   <div class="container">
     <div class="row">
@@ -14,51 +12,53 @@
 </div>
 <div class="mt-5"></div>
 <%if(cart){%>
-
-<table class="table table-striped alignmiddle">
-    
+<div class="container">
+  <table class="table alignmiddle">
     <tr>
-        <th>Image</th>
-        <th>Title</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th></th>
-        <th>Subtotal</th>
+      <!-- <th>Image</th> -->
+      <th>Title</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Action</th>
+      <th>Subtotal</th>
     </tr>
-    
-    <% var total = 0; %>
-    <% cart.forEach(function(product){ %>
-    <% var sub = parseFloat(product.qty * product.price).toFixed(2) %>
-    <% total += +sub %>
+
+    <% var total = 0; %> <% cart.forEach(function(product){ %> <% var sub =
+    parseFloat(product.qty * product.price).toFixed(2) %> <% total += +sub %>
     <tr>
-        <td><img src="<%= product.image %>" alt="<%= product.image %>" style="height: 65px; width: 65px;"></td>
-        <td><%= product.title %></td>
-        <td>Rs.<%= product.price %></td>
-        <td><%= product.qty %></td>
-        <td>
-            <a href="/cart/update/<%= product.title %>?action=add">+</a>&nbsp;
-            <a href="/cart/update/<%= product.title %>?action=remove">-</a>&nbsp;
-            <a href="/cart/update/<%= product.title %>?action=clear">Clear</a>&nbsp;
-        </td>
-        <td>Rs.<%= sub %></td>
+      <td><%= product.title %></td>
+      <td>Rs.<%= product.price %></td>
+      <td><%= product.qty %></td>
+      <td>
+        <a href="/cart/update/<%= product.title %>?action=add">+</a>&nbsp;
+        <a href="/cart/update/<%= product.title %>?action=remove">-</a>&nbsp;
+        <a href="/cart/update/<%= product.title %>?action=clear">Clear</a>&nbsp;
+      </td>
+      <td>Rs.<%= sub %></td>
     </tr>
     <% }); %>
     <tr>
-        <td colspan="6" align="right"><b>Total: </b> Rs.<%= parseFloat(total).toFixed(2) %></td>
+      <td colspan="5" align="left">
+        <b>Total: </b> Rs.<%= parseFloat(total).toFixed(2) %>
+      </td>
     </tr>
     <tr>
-        <td colspan="5" align="right">
-            <a class="clearcart btn btn-danger" href="/cart/item/clear">Clear cart</a>
-        </td>
-        <td colspan="5" align="right">
-            <a class="btn btn-primary buynow" href="#">Buy now</a>
-        </td>
+      <td>
+        <a class="clearcart btn btn-danger" href="/cart/item/clear"
+          >Clear cart</a
+        >
+      </td>
+      <td colspan="5" align="right">
+        <a
+          class="btn btn-primary buynow"
+          href="/cart/checkout?action=<%=total%>"
+          >Buy now</a
+        >
+      </td>
     </tr>
-    
-</table>
+  </table>
+</div>
+
 <%}else{%>
-    <h1 style="text-align: center;">No Items added</h1>
-<%}%>
-
-
-<%- include("./../partials/footer.ejs") %>
+<h1 style="text-align: center">No Items added</h1>
+<%}%> <%- include("./../partials/footer.ejs") %>

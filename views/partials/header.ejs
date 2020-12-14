@@ -4,33 +4,22 @@
 <head>
     <title><%=title%></title>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet"
-        href="/fonts/icomoon/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/fonts/icomoon/style.css">
 
-    <link rel="stylesheet"
-        href="/css/bootstrap.min.css">
-    <link rel="stylesheet"
-        href="/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet"
-        href="/css/magnific-popup.css">
-    <link rel="stylesheet"
-        href="/css/jquery-ui.css">
-    <link rel="stylesheet"
-        href="/css/owl.carousel.min.css">
-    <link rel="stylesheet"
-        href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
 
-    <link rel="stylesheet"
-        href="/css/aos.css">
+    <link rel="stylesheet" href="/css/aos.css">
 
-    <link rel="stylesheet"
-        href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
 </head>
 
@@ -39,13 +28,9 @@
         <div class="site-navbar py-2">
             <div class="search-wrap">
                 <div class="container">
-                    <a href="#"
-                        class="search-close js-search-close"><span class="icon-close2"></span></a>
-                    <form action="#"
-                        method="post">
-                        <input type="text"
-                            class="form-control"
-                            placeholder="Search keyword and hit enter...">
+                    <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+                    <form action="#" method="post">
+                        <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
                     </form>
                 </div>
             </div>
@@ -53,39 +38,33 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="logo">
                         <div class="site-logo ">
-                            <a href="/"
-                                class="js-logo-clone"><strong class="text-primary">Medi</strong>Box</a>
+                            <a href="/" class="js-logo-clone"><strong class="text-primary">Medi</strong>Box</a>
                         </div>
                     </div>
                     <div class="main-nav d-none d-lg-block">
-                        <nav class="site-navigation text-right text-md-center"
-                            role="navigation">
+                        <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li <%if(title === 'MediBox') { %>class="active"
-                                    <% } %>><a href="/">Home</a></li>
-                                <li <%if(title === 'Store') { %>class="active"
-                                    <% } %>><a href="/shop">Store</a></li>
+                                <li <%if(title === 'MediBox') { %>class="active" <% } %>><a href="/">Home</a></li>
+                                <li <%if(title === 'Store') { %>class="active" <% } %>><a href="/shop">Store</a></li>
                                 <li class="has-children">
                                     <a href="#">Products</a>
                                     <ul class="dropdown">
                                         <% categories.forEach(function(c){ %>
-                                            <li><a href="/shop-category/<%=c.slug%>"><%=c.title%></a></li>
-                                            <%})%>
+                                        <li><a href="/shop-category/<%=c.slug%>"><%=c.title%></a></li>
+                                        <%})%>
                                     </ul>
                                 </li>
-                                <li <%if(title === 'About') { %>class="active"
-                                    <% } %>><a href="/about">About</a></li>
-                                    <%if(user){%>
-                                        <li><a href="">Hi,<%=user.name%></a></li>
-                                    <%}else{%>
-                                        <li <%if(title === 'Register') { %>class="active"
-                                            <% } %>><a href="/register">Register</a></li>
-                                        <li <%if(title === 'Login') { %>class="active"
-                                            <% } %>><a href="/login">Login</a></li>
-                                    <%}%>
+                                <li <%if(title === 'About') { %>class="active" <% } %>><a href="/about">About</a></li>
+                                <%if(user){%>
+                                <li><a href="/users/logout">Hi,<%=user.name%></a></li>
+                                <%}else{%>
+                                <li <%if(title === 'Register') { %>class="active" <% } %>><a
+                                        href="/register">Register</a></li>
+                                <li <%if(title === 'Login') { %>class="active" <% } %>><a href="/login">Login</a></li>
+                                <%}%>
                                     <% if (user && user.admin == 1) { %>
-                                        <li><a href="/admin">Admin Area</a></li>
-                                    <%}%>
+                                <li><a href="/admin">Admin Area</a></li>
+                                <%}%>
                                 
                             </ul>
                         </nav>
@@ -98,16 +77,15 @@
                             class="icons-btn d-inline-block bag">
                             <span class="icon-shopping-bag"></span>
                             <% if (typeof cart !== "undefined") { %>
-                                
+
                                 <span class="number"><%= cart.length %></span>
                                 <% } else {%>
-                                    <span class="number">0</span>
+                                <span class="number">0</span>
                                 <% } %>
-                            <!-- <span class="number">2</span> -->
-                        </a>
-                        <a href="#"
-                            class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
-                                class="icon-menu"></span></a>
+                                <!-- <span class="number">2</span> -->
+                                </a>
+                                <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+                                        class="icon-menu"></span></a>
                     </div>
                 </div>
             </div>

@@ -1,63 +1,69 @@
 <%- include ("./../partials/adminHeader") %>
 <style>
-   img {
-      width: 100px;
-      height: 100px;
-   }
+  img {
+    width: 100px;
+    height: 100px;
+  }
 </style>
 <div class="container">
-   <h2 class="page-title">
-      Add a Product
-   </h2>
-   <a href="/admin/products" class="btn btn-primary">Back</a>
-   <div class="mt-3"></div>
-   <div class="row">
-      <div class="col">
-         <form action="" method="post"
-         enctype="multipart/form-data">
-            <!-- Title -->
-            <div class="form-group">
-               <label for="">Title</label>
-               <input type="text"
-                  class="form-control"
-                  id="formGroupExampleInput"
-                  name="title"
-                  value="<%=title%>"
-                  placeholder="Title" />
-            </div>
-            <!-- Description -->
-            <div class="form-group">
-               <label>Description</label>
-               <textarea class="form-control"
-                  cols="30"
-                  rows="10"
-                  placeholder="Description"
-                  name="desc">
+  <h2 class="page-title">Add a Product</h2>
+  <a href="/admin/products" class="btn btn-primary">Back</a>
+  <div class="mt-3"></div>
+  <div class="row">
+    <div class="col">
+      <form action="" method="post" enctype="multipart/form-data">
+        <!-- Title -->
+        <div class="form-group">
+          <label for="">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="formGroupExampleInput"
+            name="title"
+            value="<%=title%>"
+            placeholder="Title"
+          />
+        </div>
+        <!-- Description -->
+        <div class="form-group">
+          <label>Description</label>
+          <textarea
+            class="form-control"
+            cols="30"
+            rows="10"
+            placeholder="Description"
+            name="desc"
+          >
                      <%=desc%>      
-               </textarea>
-            </div>
-            <!--Dummy Price -->
-            <div class="form-group">
-               <label>Dummy Price</label>
-               <input type="text"
-                  class="form-control"
-                  placeholder="Dummy Price"
-                  name="dummyPrice"
-                  value="<%=dummyPrice%>"
-                  required />
-            </div>
-            <!-- Price -->
-            <div class="form-group">
-               <label>Price</label>
-               <input type="text"
-                  class="form-control"
-                  placeholder="Price"
-                  name="price"
-                  value="<%=price%>"
-                  required />
-            </div>
-            <!-- Quantity -->
-            <div class="form-group">
+               </textarea
+          >
+        </div>
+        <!--Dummy Price -->
+        <div class="form-group">
+          <label>Dummy Price</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Dummy Price"
+            name="dummyPrice"
+            value="<%=dummyPrice%>"
+            required
+          />
+        </div>
+        <!-- Price -->
+        <div class="form-group">
+          <label>Price</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Price"
+            name="price"
+            value="<%=price%>"
+            required
+          />
+        </div>
+        <!-- Quantity -->
+        <!-- <div class="form-group">
                <label>Quantity</label>
                <input type="number"
                   class="form-control"
@@ -65,49 +71,49 @@
                   name="quantity"
                   value="<%=quantity%>"
                   required />
-            </div>
-            <!-- Category -->
-            <div class="form-group">
-               <label>Category</label>
-               <select name="category"
-                  class="form-control">
-                  <option>None</option>
-                  <%categories.forEach(catg=>{%>
-                  <option value="<%=catg.slug%>"><%=catg.title%></option>
-                  <%})%>
-               </select>
-            </div>
-            <!-- Image Upload-->
-            <div class="form-group">
-               <label>Image</label>
-               <input type="file"
-                  class="form-control-file"
-                  name="avatar"
-                  id="img"
-                  onchange="preview()" />
-               <img src="#"
-                  id="imgPreview"
-                  style="display: none;"
-                  alt="Preview Image">
-               <hr />
-            </div>
-            <!-- Submit Button  -->
-            <button type="submit"
-               class="btn btn-primary">
-               Submit
-            </button>
-         </form>
-      </div>
-   </div>
+            </div> -->
+        <!-- Category -->
+        <div class="form-group">
+          <label>Category</label>
+          <select name="category" class="form-control">
+            <option>None</option>
+            <%categories.forEach(catg=>{%>
+            <option value="<%=catg.slug%>"><%=catg.title%></option>
+            <%})%>
+          </select>
+        </div>
+        <!-- Image Upload-->
+        <div class="form-group">
+          <label>Image</label>
+          <input
+            type="file"
+            class="form-control-file"
+            name="avatar"
+            id="img"
+            onchange="preview()"
+          />
+          <img
+            src="#"
+            id="imgPreview"
+            style="display: none"
+            alt="Preview Image"
+          />
+          <hr />
+        </div>
+        <!-- Submit Button  -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
 </div>
 <script>
-   function preview() {
-      document.getElementById("imgPreview").style.display = "block";
-      imgPreview.src = URL.createObjectURL(event.target.files[0]);
-   }
+  function preview() {
+    document.getElementById('imgPreview').style.display = 'block';
+    imgPreview.src = URL.createObjectURL(event.target.files[0]);
+  }
 </script>
 <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
 <script>
-   CKEDITOR.replace('desc')
+  CKEDITOR.replace('desc');
 </script>
 <%- include ("./../partials/adminFooter") %>

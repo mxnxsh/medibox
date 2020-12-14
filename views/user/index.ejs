@@ -1,45 +1,56 @@
 <%- include("./../partials/header.ejs") %>
 <div class="owl-carousel owl-single px-0">
-  <div class="site-blocks-cover overlay"
-    style="background-image: url('/images/hero_bg.jpg');">
+  <div
+    class="site-blocks-cover overlay"
+    style="background-image: url('/images/hero_bg.jpg')"
+  >
     <div class="container">
       <div class="row">
         <div class="col-lg-12 mx-auto align-self-center">
           <div class="site-block-cover-content text-center">
-            <h1 class="mb-0"><strong class="text-primary">MediBox</strong> Opens 24 Hours</h1>
+            <h1 class="mb-0">
+              <strong class="text-primary">MediBox</strong> Opens 24 Hours
+            </h1>
             <div class="row justify-content-center mb-5">
               <div class="col-lg-6 text-center">
                 <p>
-                  Helping patients get the medications they need.Some patients require specialty drugs for chronic or
-                  complex conditions. The network specialty pharmacy can dispense these drugs quickly and at a
-                  reasonable cost.
+                  Helping patients get the medications they need.Some patients
+                  require specialty drugs for chronic or complex conditions. The
+                  network specialty pharmacy can dispense these drugs quickly
+                  and at a reasonable cost.
                 </p>
               </div>
             </div>
-            <p><a href="/shop"
-                class="btn btn-primary px-5 py-3">Shop Now</a></p>
+            <p>
+              <a href="/shop" class="btn btn-primary px-5 py-3">Shop Now</a>
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="site-blocks-cover overlay"
-    style="background-image: url('images/hero_bg_2.jpg');">
+  <div
+    class="site-blocks-cover overlay"
+    style="background-image: url('images/hero_bg_2.jpg')"
+  >
     <div class="container">
       <div class="row">
         <div class="col-lg-12 mx-auto align-self-center">
           <div class="site-block-cover-content text-center">
-            <h1 class="mb-0">New Medicine <strong class="text-primary">Everyday</strong></h1>
+            <h1 class="mb-0">
+              New Medicine <strong class="text-primary">Everyday</strong>
+            </h1>
             <div class="row justify-content-center mb-5">
               <div class="col-lg-6 text-center">
                 <p>
-                  We're not a Doctor But we serve humankind, to make sure that they are relieved from pain. We're a
-                  Pharmacist.
+                  We're not a Doctor But we serve humankind, to make sure that
+                  they are relieved from pain. We're a Pharmacist.
                 </p>
               </div>
             </div>
-            <p><a href="/shop"
-                class="btn btn-primary px-5 py-3">Shop Now</a></p>
+            <p>
+              <a href="/shop" class="btn btn-primary px-5 py-3">Shop Now</a>
+            </p>
           </div>
         </div>
       </div>
@@ -53,33 +64,51 @@
         <div class="feature">
           <span class="wrap-icon flaticon-24-hours-drugs-delivery"></span>
           <h3><a href="#">Free Delivery</a></h3>
-          <p>Some patients require specialty drugs for chronic or complex conditions. The network specialty pharmacy can
-            dispense these drugs quickly and at a reasonable cost.</p>
-          <p><a href="#"
-              class="d-flex align-items-center"><span class="mr-2">Learn more</span> <span
-                class="icon-keyboard_arrow_right"></span></a></p>
+          <p>
+            Some patients require specialty drugs for chronic or complex
+            conditions. The network specialty pharmacy can dispense these drugs
+            quickly and at a reasonable cost.
+          </p>
+          <p>
+            <a href="#" class="d-flex align-items-center"
+              ><span class="mr-2">Learn more</span>
+              <span class="icon-keyboard_arrow_right"></span
+            ></a>
+          </p>
         </div>
       </div>
       <div class="col-lg-4">
         <div class="feature">
           <span class="wrap-icon flaticon-medicine"></span>
           <h3><a href="#">New Medicine Everyday</a></h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa laborum voluptates excepturi neque
-            labore .</p>
-          <p><a href="#"
-              class="d-flex align-items-center"><span class="mr-2">Learn more</span> <span
-                class="icon-keyboard_arrow_right"></span></a></p>
+          <p>
+            Sometimes it seems like there are more medicines than there are
+            diseases, and it can be hard to keep them straight. Some can be
+            bought over the counter at pharmacies or other stores.
+          </p>
+          <p>
+            <a href="#" class="d-flex align-items-center"
+              ><span class="mr-2">Learn more</span>
+              <span class="icon-keyboard_arrow_right"></span
+            ></a>
+          </p>
         </div>
       </div>
       <div class="col-lg-4">
         <div class="feature">
           <span class="wrap-icon flaticon-test-tubes"></span>
           <h3><a href="#">Medicines Guaranteed</a></h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa laborum voluptates excepturi neque
-            labore .</p>
-          <p><a href="#"
-              class="d-flex align-items-center"><span class="mr-2">Learn more</span> <span
-                class="icon-keyboard_arrow_right"></span></a></p>
+          <p>
+            Absolutely! All our medicines undergo a three-step quality check
+            process to ensure they are of high quality. We source our products
+            only from licensed retail pharmacies.
+          </p>
+          <p>
+            <a href="#" class="d-flex align-items-center"
+              ><span class="mr-2">Learn more</span>
+              <span class="icon-keyboard_arrow_right"></span
+            ></a>
+          </p>
         </div>
       </div>
     </div>
@@ -95,17 +124,20 @@
     <div class="row">
       <div class="col-md-12 block-3 products-wrap">
         <div class="nonloop-block-3 owl-carousel">
-          <%if(products){%>
-            <%products.forEach(product=>{%>
-              <div class="text-center item mb-4 item-v2">
-                <a href="/shop-single/<%=product.slug%>/<%=product._id%>"> <img src="/uploads/<%=product.avatar%>"
-                    alt="Image"></a>
-                <h3 class="text-dark"><a href="/shop-single/<%=product.slug%>/<%=product._id%>"><%=product.title%></a></h3>
-                <p class="price">&#8377;<%=product.price%></p>
-              </div>
-            <%})%>
-          <%}else{%>
-            <h1 style="text-align: center;">No product</h1>
+          <%if(products){%> <%products.forEach(product=>{%>
+          <div class="text-center item mb-4 item-v2">
+            <a href="/shop-single/<%=product.slug%>/<%=product._id%>">
+              <img src="/uploads/<%=product.avatar%>" alt="Image"
+            /></a>
+            <h3 class="text-dark">
+              <a href="/shop-single/<%=product.slug%>/<%=product._id%>"
+                ><%=product.title%></a
+              >
+            </h3>
+            <p class="price">&#8377;<%=product.price%></p>
+          </div>
+          <%})%> <%}else{%>
+          <h1 style="text-align: center">No product</h1>
           <%}%>
         </div>
       </div>
